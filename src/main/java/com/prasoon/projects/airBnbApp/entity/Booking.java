@@ -6,15 +6,13 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@Table(uniqueConstraints = @UniqueConstraint(name = "unique_hotel_room_date", columnNames = {"hotel_id", "room_id", "date"}))
-public class Inventory {
+public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +26,19 @@ public class Inventory {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
-    @Column(nullable = false)
-    private LocalDate date;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(nullable = false)
-    private Integer totalCount;
+    private Integer roomCount;
 
-    @Column(nullable = false, columnDefinition = "INTEGER DEFAULT 0")
-    private Integer bookedCount;
+    @Column(nullable = false)
+    private LocalDate checkInDate;
+
+    @Column(nullable = false)
+    private LocalDate checkOutDate;
+
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -43,17 +46,4 @@ public class Inventory {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    @Column(nullable = false, precision = 5, scale = 2)
-    private BigDecimal surgeFactor;
-
-    @Column(nullable = false)
-    private Boolean closed;
-
-    @Column(nullable = false, precision = 2, scale = 2)
-    private BigDecimal price;
-
-    @Column(nullable = false)
-    private String city;
-
 }
