@@ -21,5 +21,7 @@ public class Payment {
     @Column(unique = true, nullable = false)
     private String transactionId;
 
+    // additional columns
+
 
 }
