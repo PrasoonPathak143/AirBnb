@@ -9,9 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -46,6 +44,28 @@ public class HotelServiceImpl implements HotelService{
         return hotelRepository.findAll()
                 .stream().map(hotel -> modelMapper.map(hotel, HotelDto.class))
                 .toList();
+
+    }
+
+    @Override
+    public HotelDto updateHotelById(Long id, HotelDto hotelDto) {
+        log.info("Updating hotel with id - {}", id);
+        Hotel data = hotelRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Hotel with id " + id +  " not found")
+        );
+        modelMapper.map(hotelDto, data);
+        data.setId(id);
+        data = hotelRepository.save(data);
+        return modelMapper.map(data, HotelDto.class);
+    }
+
+    @Override
+    public void deleteHotelById(Long id) {
+        boolean exists = hotelRepository.existsById(id);
+        if(!exists) throw new ResourceNotFoundException("Hotel with id " + id +  " not found");
+        hotelRepository.deleteById(id);
+
+        // TODO: delete the future inventories for this hotel
 
     }
 }

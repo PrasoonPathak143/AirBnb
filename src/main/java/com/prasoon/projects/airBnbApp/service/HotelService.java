@@ -12,7 +12,7 @@ public interface HotelService {
 
     List<HotelDto> getAllHotels();
 
-    //Hotel updateHotelById(Long id, HotelDto hotelDto);
+    HotelDto updateHotelById(Long id, HotelDto hotelDto);
 
-    //Hotel deleteHotelById(Long id);
+    void deleteHotelById(Long id);
 }
