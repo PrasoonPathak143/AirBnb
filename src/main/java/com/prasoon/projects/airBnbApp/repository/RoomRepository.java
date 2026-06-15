@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
+    //Room -Entity with which this RoomRepository will be dealing and Long is primary key datatype for Room Entity
+
+
 }
