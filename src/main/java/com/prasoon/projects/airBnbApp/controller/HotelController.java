@@ -52,4 +52,11 @@ public class HotelController {
         hotelService.deleteHotelById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> activateHotelById(@PathVariable Long id){
+        log.info("Deleting hotel by id - {}", id);
+        hotelService.activateHotel(id);
+        return ResponseEntity.noContent().build();
+    }
 }
