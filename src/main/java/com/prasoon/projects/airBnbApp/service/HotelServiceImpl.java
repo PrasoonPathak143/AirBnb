@@ -27,6 +27,9 @@ public class HotelServiceImpl implements HotelService{
         Hotel savedHotel = hotelRepository.save(entity);
         return modelMapper.map(savedHotel, HotelDto.class);
     }
+    //first method receives HotelDto, then converts DTO to entity with ModelMapper,then save this object to database where spring JPA calls Hibernate, Hibernate generates SQL and postgreSql inserts the row, then again it converts entity to DTO and service returns HotelDTO to controller.
+    //
+    //Request JSON  -  HotelDto  -  Hotel Entity  -  Database  -  Hotel Entity -  HotelDto  -  Response JSON
 
     @Override
     public HotelDto getHotelById(Long id) {

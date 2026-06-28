@@ -50,8 +50,18 @@ public class Booking {
     private LocalDateTime updatedAt;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "payment_id")
+    //@JoinColumn(nullable = false, name = "payment_id")
+    @JoinColumn(name = "payment_id")
+    //here Nullable = false is workable as the flow is like
+    // Create Booking
+    //      ↓
+    //Status = PENDING
+    //      ↓
+    //Payment happens
+    //      ↓
+    //Status = CONFIRMED
     private Payment payment;
+
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
